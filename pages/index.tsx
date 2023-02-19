@@ -16,7 +16,12 @@ export default function Home() {
 				<div className="flex items-center justify-center h-[26px] w-[26px] rounded-[4px] bg-[#FAB82E]">
 					<FiFileText className="h-4 w-4 text-[#FFE3B4]" />
 				</div>
-				<div className="font-medium text-[14px] leading-4">Главный экран</div>
+				<div className="font-medium text-[14px] leading-4">
+					Главный экран{' '}
+					{data?.updated_at && (
+						<span className="text-xs">(обновлено {data?.updated_at})</span>
+					)}
+				</div>
 			</div>
 			{/* Content */}
 			<div className="flex flex-col p-4 gap-4">

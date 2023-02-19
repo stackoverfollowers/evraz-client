@@ -29,11 +29,13 @@ export interface SinterMachineType {
 
 export interface SinterMachinesDataType {
 	sinter_machines: SinterMachineType[];
+	updated_at: string;
 }
 
 type WarningType = 'default' | 'alarm' | 'warning';
 
 export interface SingleExhausterType {
+	updated_at: string;
 	title: string;
 	is_work: boolean;
 	rotor_title: string;

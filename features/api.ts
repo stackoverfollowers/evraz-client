@@ -22,8 +22,10 @@ export const api = createApi({
 
 					const listener = (event: MessageEvent) => {
 						const data = JSON.parse(event.data);
-
-						updateCachedData(() => data);
+						updateCachedData(() => ({
+							...data,
+							updated_at: new Date().toISOString(),
+						}));
 					};
 					ws.addEventListener('message', listener);
 				} catch (e) {
@@ -43,14 +45,16 @@ export const api = createApi({
 					`ws://176.113.82.20/notify_exhauster/${arg.index}`
 				);
 
-				console.log(ws);
-
 				try {
 					await cacheDataLoaded;
 
 					const listener = (event: MessageEvent) => {
 						const data = JSON.parse(event.data);
-						updateCachedData(() => data);
+
+						updateCachedData(() => ({
+							...data,
+							updated_at: new Date().toISOString(),
+						}));
 					};
 					ws.addEventListener('message', listener);
 				} catch (e) {

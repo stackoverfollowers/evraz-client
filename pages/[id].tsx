@@ -11,8 +11,9 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { registerLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setExhauster } from '@/features/graphSlice';
+import { RootState } from '@/store';
 registerLocale('ru', ru);
 
 const SectionPage = () => {
@@ -128,7 +129,10 @@ const SectionPage = () => {
 							<FiFileText className="h-4 w-4 text-[#FFE3B4]" />
 						</div>
 						<div className="font-medium text-[14px] leading-4">
-							Эксгаустер {data?.title}
+							Эксгаустер {data?.title}{' '}
+							{data?.updated_at && (
+								<span className="text-xs">(обновлено {data?.updated_at})</span>
+							)}
 						</div>
 					</div>
 					{renderActiveTab()}
