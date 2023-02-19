@@ -7,20 +7,8 @@ import {
 	FiRotateCw,
 	FiClock,
 } from 'react-icons/fi';
-import { useGetNotificationsQuery } from '@/features/api';
-import { NotificationsType } from '@/types';
 
-const Bubble = ({ timestamp }: { timestamp: number }) => {
-	const formatTimestamp = (timestamp: number): string => {
-		const date = new Date(timestamp * 1000); // convert seconds to milliseconds
-		const day = date.getDate().toString().padStart(2, '0');
-		const month = (date.getMonth() + 1).toString().padStart(2, '0');
-		const year = date.getFullYear().toString();
-		const hours = date.getHours().toString().padStart(2, '0');
-		const minutes = date.getMinutes().toString().padStart(2, '0');
-		return `${day}.${month}.${year}, ${hours}:${minutes}`;
-	};
-
+const Bubble = () => {
 	return (
 		<div className="flex flex-col gap-[10px] last:pb-0 last:border-0 pb-2.5 border-b border-[#EFEFEF]">
 			<div className="flex gap-[10px]">
@@ -30,7 +18,7 @@ const Bubble = ({ timestamp }: { timestamp: number }) => {
 				</div>
 				<div className="flex items-center gap-[5px] text-[#565655]">
 					<FiClock className="h-4 w-4" />
-					<span className="text-xs">{formatTimestamp(timestamp)}</span>
+					<span className="text-xs">31.01.2023, 12:27</span>
 				</div>
 			</div>
 			{/* Bubble */}
@@ -40,13 +28,13 @@ const Bubble = ({ timestamp }: { timestamp: number }) => {
 			</div>
 			{/* Date */}
 			<span className="flex justify-end text-[#565655] text-xs">
-				Дата добавления: {formatTimestamp(timestamp)}
+				Дата добавления: 31.01.2023, 12:27
 			</span>
 		</div>
 	);
 };
 
-const Notification = ({ event }: { event: NotificationsType['events'][0] }) => {
+const Notification = () => {
 	return (
 		<div className="relative mt-2 flex flex-col px-4 gap-[10px]">
 			<div
@@ -65,12 +53,12 @@ const Notification = ({ event }: { event: NotificationsType['events'][0] }) => {
 									)}
 								</div>
 								<span className="text-[#2B2B2A] text-sm font-medium">
-									Эксгаустер {event.exhauster_title}
+									Эксгаустер Y-171
 								</span>
 							</Disclosure.Button>
 							<Disclosure.Panel className="flex flex-col pl-3 mt-5 gap-[10px]">
-								<Bubble timestamp={event.timestamp} />
-								{/* <Bubble /> */}
+								<Bubble />
+								<Bubble />
 							</Disclosure.Panel>
 						</>
 					)}
@@ -86,13 +74,6 @@ interface NotificationsProps {
 }
 
 const Notifications = ({ open, onClose }: NotificationsProps) => {
-	const { data, isLoading } = useGetNotificationsQuery();
-
-	if (isLoading) {
-		return <div>Loading....</div>;
-	}
-
-	console.log(data);
 	return (
 		<Transition.Root show={open} as={Fragment}>
 			<Dialog as="div" className="relative z-10" onClose={onClose}>
@@ -134,12 +115,9 @@ const Notifications = ({ open, onClose }: NotificationsProps) => {
 												/>
 											</button>
 										</div>
-										{data?.events.map(item => (
-											<Notification key={item.bearing_index} event={item} />
-										))}
-										{/* <Notification />
 										<Notification />
-										<Notification /> */}
+										<Notification />
+										<Notification />
 									</div>
 								</Dialog.Panel>
 							</Transition.Child>
